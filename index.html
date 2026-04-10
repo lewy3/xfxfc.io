@@ -8,112 +8,190 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <style>
+    * {
+        box-sizing: border-box; margin: 0; padding: 0;
+      }
+
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
+      overflow-x: hidden;
       background: #0a0a0a;
       position: relative;
     }
 
-    /* Nowe tło ze zdjęcia best.jpg */
-    .background-image {
+    /* VIDEO TŁO */
+    .video-background {
       position: fixed;
       inset: 0;
-      background-image: url('best.jpg');
-      background-size: cover;        /* zdjęcie wypełni cały ekran */
-      background-position: center;   /* wyśrodkowane */
-      background-repeat: no-repeat;
-      z-index: -2;                   /* pod wszystkim */
-      filter: brightness(0.65);      /* opcjonalnie przyciemniam, żeby tekst był czytelny */
+      z-index: -2;
+      overflow: hidden;
     }
 
-    /* Zachowuję delikatny gradient animowany jako nakładkę (żeby było ładniej) */
+    .video-background video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55);
+    }
+
+    /* Animowana nakładka */
     .overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(-45deg, rgba(10,10,10,0.85), rgba(26,26,26,0.75), rgba(15,15,15,0.8));
-      background-size: 400% 400%;
-      animation: gradientShift 35s ease infinite;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.45) 0%,
+        rgba(10,10,10,0.3) 50%,
+        rgba(10,10,10,0.75) 100%
+      );
       z-index: -1;
-    }
-
-    @keyframes gradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
 
     .content {
       position: relative;
       z-index: 10;
     }
+
+    /* SPOTIFY EMBED */
+    .spotify-section {
+      margin-top: 48px;
+      width: 100%;
+      max-width: 420px;
+      mx: auto;
+    }
+
+    .spotify-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 14px;
+      justify-content: center;
+    }
+
+    .spotify-label i {
+      color: #1DB954;
+      font-size: 14px;
+    }
+
+    .spotify-embed-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.07);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .spotify-embed-wrapper:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 50px rgba(0,0,0,0.65);
+    }
+
+    .spotify-embed-wrapper iframe {
+      display: block;
+      border: none;
+      border-radius: 16px;
+    }
+
+    /* Social icons */
+    .social-link {
+      transition: color 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+    .social-link:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Music btn */
+    #musicBtn {
+      transition: background 0.2s, transform 0.15s;
+    }
+    #musicBtn:active { transform: scale(0.9); }
+
+    /* Scrollbar ciemny */
+    ::-webkit-scrollbar { 
+      width: 4px;
+     }
+    ::-webkit-scrollbar-track {
+       background: transparent; 
+      }
+    ::-webkit-scrollbar-thumb {
+       background: rgba(255,255,255,0.15); border-radius: 4px; 
+      }
   </style>
 </head>
-<body class="text-zinc-200 flex items-center justify-center relative">
+<body class="text-zinc-200">
 
-  <!-- Nowe tło ze zdjęcia -->
-  <div class="background-image"></div>
-  
-  <!-- Delikatna animowana nakładka -->
+  <!-- VIDEO TŁO -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <!-- Podmień src na swój plik wideo, np. background.mp4 -->
+      <source src="forest.mp4" type="video/mp4">
+      <!-- Fallback jeśli video nie załaduje – pozostaje ciemne tło #0a0a0a -->
+    </video>
+  </div>
+
+  <!-- Nakładka gradientowa -->
   <div class="overlay"></div>
 
-  <div class="content text-center px-6 max-w-md mx-auto">
-    <img src="spiffo.jpg"
-         alt="xfxfc"
-         class="w-40 h-40 mx-auto rounded-3xl object-cover border-4 border-zinc-800 shadow-2xl mb-10">
+  <!-- TREŚĆ -->
+  <div class="content flex flex-col items-center justify-start min-h-screen py-20 px-6">
 
-    <h1 class="text-7xl font-light tracking-tighter mb-2">
-      xfxfc
-    </h1>
-    <p class="text-zinc-400 text-xl mb-1">Welcome!</p>
-   
-    <p class="text-zinc-500 text-lg leading-relaxed max-w-xs mx-auto">
-      maybe someday I will become a programmer
-    </p>
+    <!-- Avatar + nagłówek -->
+    <div class="text-center max-w-md w-full">
+      <img src="unnamed.jpg"
+           alt="xfxfc"
+           class="w-40 h-40 mx-auto rounded-3xl object-cover border-4 border-zinc-800 shadow-2xl mb-10">
 
-    <div class="flex justify-center gap-10 mt-16 text-4xl">
-      <a href="https://www.youtube.com/@xfxfc/featured" target="_blank"
-         class="hover:text-red-500 transition-colors duration-300">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://github.com/lewy3" target="_blank"
-         class="hover:text-white transition-colors duration-300">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://open.spotify.com/user/31v6vltmxpdibbqtckfwrj5ornuu?si=2655e6d5ea9446ce" target="_blank"
-         class="hover:text-green-500 transition-colors duration-300">
-        <i class="fab fa-spotify"></i>
-      </a>
+      <h1 class="text-7xl font-light tracking-tighter mb-2">xfxfc</h1>
+      <p class="text-zinc-400 text-xl mb-1">Welcome!</p>
+      <p class="text-zinc-500 text-lg leading-relaxed max-w-xs mx-auto">
+        maybe someday I will become a programmer
+      </p>
+
+      <!-- Social icons -->
+      <div class="flex justify-center gap-10 mt-16 text-4xl">
+        <a href="https://www.youtube.com/@xfxfc/featured" target="_blank"
+           class="social-link hover:text-red-500">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://github.com/lewy3" target="_blank"
+           class="social-link hover:text-white">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://open.spotify.com/user/31v6vltmxpdibbqtckfwrj5ornuu?si=2655e6d5ea9446ce" target="_blank"
+           class="social-link hover:text-green-500">
+          <i class="fab fa-spotify"></i>
+        </a>
+      </div>
+
+      <!-- SEKCJA SPOTIFY PLAYLIST -->
+      <div class="spotify-section mx-auto">
+        <div class="spotify-label">
+          <i class="fab fa-spotify"></i>
+          <span>my playlist</span>
+        </div>
+        <div class="spotify-embed-wrapper">
+          <iframe
+            src="https://open.spotify.com/embed/playlist/5svxLueXgP1VzEsdyAdNAf?utm_source=generator"
+            width="100%"
+            height="380"
+            allowfullscreen
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Przycisk muzyki -->
-  <div id="musicBtn"
-       class="absolute bottom-8 left-8 w-12 h-12 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-xl cursor-pointer transition-all active:scale-90">
-    <i id="musicIcon" class="fas fa-play"></i>
-  </div>
-
   <audio id="bgMusic" autoplay loop>
-    <source src="cloud.mp3" type="audio/mpeg">
+    <source src="HatTrick.mp3" type="audio/mpeg">
   </audio>
-
-  <script>
-    const audio = document.getElementById('bgMusic');
-    const btn = document.getElementById('musicBtn');
-    const icon = document.getElementById('musicIcon');
-    let isPlaying = false;
-
-    btn.addEventListener('click', () => {
-      if (isPlaying) {
-        audio.pause();
-        icon.classList.replace('fa-pause', 'fa-play');
-      } else {
-        audio.play().catch(() => console.log("Autoplay blocked"));
-        icon.classList.replace('fa-play', 'fa-pause');
-      }
-      isPlaying = !isPlaying;
-    });
-  </script>
 </body>
 </html>
