@@ -20,7 +20,7 @@
       position: relative;
     }
 
-    /* VIDEO TŁO */
+    /* video tlo */
     .video-background {
       position: fixed;
       inset: 0;
@@ -97,7 +97,7 @@
       border-radius: 16px;
     }
 
-    /* Social icons */
+    /* Sociale */
     .social-link {
       transition: color 0.3s, transform 0.2s;
       display: inline-block;
@@ -128,10 +128,9 @@
 
   <!-- VIDEO TŁO -->
   <div class="video-background">
-    <video autoplay muted loop playsinline>
-      <!-- Podmień src na swój plik wideo, np. background.mp4 -->
+    <video autoplay muted loop>
       <source src="forest.mp4" type="video/mp4">
-      <!-- Fallback jeśli video nie załaduje – pozostaje ciemne tło #0a0a0a -->
+      <source src="forest.webm" type="video/webm">
     </video>
   </div>
 
